@@ -1,0 +1,42 @@
+// Firebase Configuration for D'VINTAGE ERA GYM
+// ==========================================
+// To set up Firebase for your website:
+// 1. Go to https://console.firebase.google.com/
+// 2. Create a new project or use existing one
+// 3. Enable Cloud Firestore database (start in test mode for development)
+// 4. Go to Project Settings > General > Your apps
+// 5. Copy your Firebase config and replace the values below
+
+const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT_ID.appspot.com",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    appId: "YOUR_APP_ID"
+};
+
+// Initialize Firebase
+let db = null;
+
+(function() {
+    try {
+        // Check if Firebase app is already initialized
+        if (firebase.apps.length === 0) {
+            // Only initialize if no apps exist and config has real values
+            if (firebaseConfig.apiKey !== "YOUR_API_KEY") {
+                firebase.initializeApp(firebaseConfig);
+            }
+        }
+        
+        // Get Firestore database instance if initialized
+        if (firebase.apps.length > 0) {
+            db = firebase.firestore();
+        }
+    } catch (e) {
+        console.log('Firebase initialization skipped:', e.message);
+    }
+})();
+
+// Export db for use in other scripts
+window.db = db;
